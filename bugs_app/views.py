@@ -1,8 +1,8 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from bugs_app.models import MyUser
-from bugs_app.forms import CustomUserForm, LoginForm
+from bugs_app.models import MyUser, Ticket
+from bugs_app.forms import CustomUserForm, LoginForm, TicketForm
 
 def index(request):
     return render(request, 'index.html')
@@ -37,4 +37,13 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("homepage"))
 
+def ticket_form_view(request):
+    if request.method == "POST":
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            Ticket.objects.create(title=data.get('title'), description=data.get('description'), creator=request.user, status='N')
+            return HttpResponseRedirect(reverse("homepage"))
+    form = TicketForm()
+    return render(request, "generic_form.html", {"form": form})
 
