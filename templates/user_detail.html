@@ -6,32 +6,57 @@
     <title>User info</title>
   </head>
   <body>
+    <div>
+      {% if not user %}
+      <h2>The user you are looking for does not exist</h2>
+      {% else %}
+      <h1>{{ user.display_name }}</h1>
+      <i>Username: {{ user.username }}</i>
 
-</div>
-{% if not user %}
-<h2>The user you are looking for does not exist</h2>
-{% else %}
-<h1>{{ user.display_name }}</h1>
-<i>Username: {{ user.username }}</i>
+      <div>
+        <h4>Tickets created</h4>
+        <ul>
+          {% for ticket in ticket_created %} {% if ticket.creator == user %}
+          <li>
+            <a href="/ticket/{{ ticket.id }}/"
+              >{{ticket.title}} : {{ticket.status}}</a
+            >
+          </li>
+          {% endif %} {% endfor %}
+        </ul>
+      </div>
 
-<ul>
-  {% for ticket in tickets %}
-  <li>
-    
-    <a href="/ticket/{{ ticket.id }}/">{{ ticket.title }} </a> <p>Status: {{ ticket.status }}</p>
-    
-  </li>
-  {% endfor %}
-</ul>
+      <div>
+        <h4>Tickets working on</h4>
+        <ul>
+          {% for ticket in ticket_working %} {% if ticket.owner == user %}
+          <li>
+            <a href="/ticket/{{ ticket.id }}/"
+              >{{ticket.title}} : {{ticket.status}}</a
+            >
+          </li>
+          {% endif %} {% endfor %}
+        </ul>
+      </div>
 
-{% endif %}
-</div>
-<div>
-    <i>New = New, P = In Progress, D = Done, I = Invalid</i>
-</div>
+      <div>
+        <h4>Tickets completed</h4>
+        <ul>
+          {% for ticket in ticket_completed %} {% if ticket.last_owner == user%}
+          <li>
+            <a href="/ticket/{{ ticket.id }}/"
+              >{{ticket.title}} : {{ticket.status}}</a
+            >
+          </li>
+          {% endif %} {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+</br>
 </br>
     <button>
-        <a href="/"><i class="link">Back to home</i></a>
+      <a href="/">Back to Home</a>
     </button>
   </body>
 </html>

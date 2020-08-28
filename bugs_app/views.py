@@ -63,8 +63,10 @@ def ticket_detail_view(request, ticket_id):
 @login_required
 def user_detail_view(request, user_id):
     user = MyUser.objects.filter(id=user_id).first()
-    ticket_list = Ticket.objects.filter(owner=user)
-    return render(request, "user_detail.html", {"user": user, "tickets": ticket_list})
+    ticket_created = Ticket.objects.filter(creator=user)
+    ticket_working = Ticket.objects.filter(owner=user)
+    ticket_completed = Ticket.objects.filter(last_owner=user)
+    return render(request, "user_detail.html", {"user": user, "ticket_created": ticket_created, "ticket_working": ticket_working, "ticket_completed": ticket_completed})
 
 @login_required
 def ticket_edit_view(request, id):
@@ -78,6 +80,10 @@ def ticket_edit_view(request, id):
     else:
         form = TicketForm(instance=edit)
     return render(request, 'generic_form.html', {'form': form})
+
+# https://tutorial.djangogirls.org/en/django_forms/
+# https://docs.djangoproject.com/en/3.1/ref/class-based-views/generic-editing/
+
 
 @login_required
 def assign_ticket(request, ticket_id):
