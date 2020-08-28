@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User info</title>
+  </head>
+  <body>
+
+</div>
+{% if not user %}
+<h2>The user you are looking for does not exist</h2>
+{% else %}
+<h1>{{ user.display_name }}</h1>
+<i>Username: {{ user.username }}</i>
+
+<ul>
+  {% for ticket in tickets %}
+  <li>
+    <a href="/ticket/{{ ticket.id }}/">{{ ticket.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endif %}
+</div>
+    <button>
+        <a href="/"><i class="link">Back to home</i></a>
+    </button>
+  </body>
+</html>

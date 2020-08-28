@@ -9,6 +9,13 @@
     <div>
       {% if request.user.is_authenticated %}
       <h2>Hello, {{ request.user.display_name }}!</h2>
+      {% if request.user.is_staff %}
+      <button>
+          <a href="/signup/">Sign up a new user</a>
+      </button>
+    </br>
+</br>
+      {% endif %}
       <button>
         <a href="/newticket/">Open a new ticket</a>
       </button>
@@ -17,12 +24,87 @@
       <button>
         <a href="/logout/">Log Out</a>
       </button>
+      
       {% else %}
       <button>
         <a href="/login/">Log In</a>
       </button>
-
       {% endif %}
     </div>
+
+<div>
+<h4>Users</h4>
+<ul>
+{% for user in users %}
+<li>
+    <a href="/user/{{ user.id }}/">{{ user.display_name }}</a>
+</li>
+{% endfor %}
+</ul>
+</div>
+
+    <div>
+        <h4>Tickets</h4>
+    <div>
+        <h5>New</h5>  
+        <ul>
+          {% for ticket in tickets %}
+          {% if ticket.status == 'N' %}
+          <li> 
+            <a href="/ticket/{{ ticket.id }}/"
+              >{{ ticket.title }}
+            </a>
+          </li>  
+          {% endif %}
+          {% endfor %}
+        </ul>       
+      </div>
+      
+      <div>
+        <h5>In Progress</h5>  
+        <ul>
+          {% for ticket in tickets %}
+          {% if ticket.status == 'P' %}
+          <li> 
+            <a href="/ticket/{{ ticket.id }}/"
+              >{{ ticket.title }}
+            </a>
+          </li>  
+          {% endif %}
+          {% endfor %}
+        </ul>       
+      </div>
+
+      <div>
+        <h5>Done</h5>  
+        <ul>
+          {% for ticket in tickets %}
+          {% if ticket.status == 'D' %}
+          <li> 
+            <a href="/ticket/{{ ticket.id }}/"
+              >{{ ticket.title }}
+            </a>
+          </li>  
+          {% endif %}
+          {% endfor %}
+        </ul>       
+      </div>
+
+      <div>
+        <h5>Invalid</h5>  
+        <ul>
+          {% for ticket in tickets %}
+          {% if ticket.status == 'I' %}
+          <li> 
+            <a href="/ticket/{{ ticket.id }}/"
+              >{{ ticket.title }}
+            </a>
+          </li>  
+          {% endif %}
+          {% endfor %}
+        </ul>       
+      </div>
+    </div>
+     
   </body>
 </html>

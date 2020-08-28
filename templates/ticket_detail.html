@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticket details</title>
+  </head>
+  <body>
+    <div>
+      <h1>{{ ticket.title }}</h1>
+      <p>Status: {{ ticket.status }}</p>
+      <p>In queue since: {{ ticket.time_created }}</p>
+      <p>Created by: {{ ticket.creator }}</p>
+      <p>Currently owned by: {{ ticket.owner }}</p>
+      <p>Completed by: {{ ticket.last_owner }}</p>
+      <p>Description: {{ticket.description }}</p>
+    </div>
+    <button>
+      <a href="/"><i class="link">Back to Home</i></a>
+    </button>
+  </body>
+</html>

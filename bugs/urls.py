@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from bugs_app.views import index, login_view, logout_view, signup_view, ticket_form_view
+from bugs_app.views import index, login_view, logout_view, signup_view, ticket_form_view, ticket_detail_view, user_detail_view
 
 urlpatterns = [
     path('', index, name="homepage"),
     path('newticket/', ticket_form_view),
+    path('ticket/<int:ticket_id>/', ticket_detail_view),
+    path('user/<int:user_id>/', user_detail_view),
     path('login/', login_view),
     path('logout/', logout_view),
     path('signup/', signup_view),
