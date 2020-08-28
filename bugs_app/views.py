@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.shortcuts import render, HttpResponseRedirect, reverse, get_object_or_404, redirect
 from django.http import HttpResponseForbidden
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -61,3 +61,15 @@ def user_detail_view(request, user_id):
     user = MyUser.objects.filter(id=user_id).first()
     ticket_list = Ticket.objects.filter(owner=user)
     return render(request, "user_detail.html", {"user": user, "tickets": ticket_list})
+
+def ticket_edit_view(request, id):
+    edit = get_object_or_404(Ticket, id=id)
+    if request.method == "POST":
+        form = TicketForm(request.POST, instance=edit)
+        if form.is_valid():
+            edit = form.save(commit=False)
+            edit.save()
+            return redirect('ticket', edit.pk)
+    else:
+        form = TicketForm(instance=edit)
+    return render(request, 'generic_form.html', {'form': form})
