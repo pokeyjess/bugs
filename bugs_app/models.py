@@ -17,6 +17,9 @@ class Ticket(models.Model):
     owner = models.ForeignKey(MyUser, null=True, unique=False, related_name="owner", on_delete=models.SET_NULL)
     last_owner = models.ForeignKey(MyUser, null=True, unique=False, related_name="last_owner", on_delete=models.SET_NULL)
 
+# STATUS = Choices("New", "In Progress", "Done", "Invalid")
+
+
 '''
 Some resources used here:
 # https://docs.djangoproject.com/en/3.0/ref/models/fields/#choices

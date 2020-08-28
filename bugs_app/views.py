@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from bugs_app.models import MyUser, Ticket
 from bugs_app.forms import CustomUserForm, LoginForm, TicketForm
 
+@login_required
 def index(request):
     tickets = Ticket.objects.all().order_by('-time_created')
     users = MyUser.objects.all().order_by('-display_name')
@@ -43,6 +44,7 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("homepage"))
 
+@login_required
 def ticket_form_view(request):
     if request.method == "POST":
         form = TicketForm(request.POST)
@@ -53,15 +55,18 @@ def ticket_form_view(request):
     form = TicketForm()
     return render(request, "generic_form.html", {"form": form})
 
+@login_required
 def ticket_detail_view(request, ticket_id):
     ticket = Ticket.objects.filter(id=ticket_id).first()
     return render(request, "ticket_detail.html", {"ticket": ticket})
 
+@login_required
 def user_detail_view(request, user_id):
     user = MyUser.objects.filter(id=user_id).first()
     ticket_list = Ticket.objects.filter(owner=user)
     return render(request, "user_detail.html", {"user": user, "tickets": ticket_list})
 
+@login_required
 def ticket_edit_view(request, id):
     edit = get_object_or_404(Ticket, id=id)
     if request.method == "POST":
@@ -73,3 +78,40 @@ def ticket_edit_view(request, id):
     else:
         form = TicketForm(instance=edit)
     return render(request, 'generic_form.html', {'form': form})
+
+@login_required
+def assign_ticket(request, ticket_id):
+    ticket = Ticket.objects.get(id=ticket_id)
+    ticket.status = "P"
+    ticket.owner = request.user
+    ticket.save()
+    return redirect('ticket', ticket.pk)
+
+@login_required
+def invalid_ticket(request, ticket_id):
+    ticket = Ticket.objects.get(id=ticket_id)
+    ticket.status = "I"
+    ticket.owner = None
+    ticket.save()
+    return redirect('ticket', ticket_id)
+
+@login_required
+def finished_ticket(request, ticket_id):
+    ticket = Ticket.objects.get(id=ticket_id)
+    ticket.status = "D"
+    ticket.owner = None
+    ticket.last_owner = request.user
+    ticket.save()
+    return redirect('ticket', ticket_id)
+
+@login_required
+def reopen_ticket(request, ticket_id):
+    ticket = Ticket.objects.get(id=ticket_id)
+    ticket.status ="N"
+    ticket.creator = request.user
+    ticket.owner = None
+    ticket.last_owner = None
+    ticket.save()
+    return redirect('ticket', ticket_id)
+
+

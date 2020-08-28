@@ -13,5 +13,6 @@ class LoginForm(forms.Form):
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
+        # choice = forms.ChoiceField(help_text='Status', choices=[(, 'Boast'), (False, 'Roast')])
         fields = ["title", "description"]
 

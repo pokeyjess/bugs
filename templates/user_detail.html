@@ -17,13 +17,19 @@
 <ul>
   {% for ticket in tickets %}
   <li>
-    <a href="/ticket/{{ ticket.id }}/">{{ ticket.title }}</a>
+    
+    <a href="/ticket/{{ ticket.id }}/">{{ ticket.title }} </a> <p>Status: {{ ticket.status }}</p>
+    
   </li>
   {% endfor %}
 </ul>
 
 {% endif %}
 </div>
+<div>
+    <i>New = New, P = In Progress, D = Done, I = Invalid</i>
+</div>
+</br>
     <button>
         <a href="/"><i class="link">Back to home</i></a>
     </button>
