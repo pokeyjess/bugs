@@ -25,5 +25,8 @@ Some resources used here:
 # https://books.agiliq.com/projects/django-admin-cookbook/en/latest/current_user.html
 # https://stackoverflow.com/questions/9051328/django-assigning-instance-of-a-model-to-a-user  
 # https://stackoverflow.com/questions/4670783/make-the-user-in-a-model-default-to-the-current-user
-    
+#  https://anthonyfox.io/posts/choices-for-choices-in-django-charfields  
+
+# display choices, spelled out:
+# https://stackoverflow.com/questions/4320679/django-display-choice-value
 '''

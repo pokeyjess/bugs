@@ -19,7 +19,7 @@
           {% for ticket in tickets_created %} {% if ticket.creator == user %}
           <li>
             <a href="/ticket/{{ ticket.id }}/"
-              >{{ticket.title}} : {{ticket.status}}</a
+              >{{ticket.title}} : {{ticket.get_status_display}}</a
             >
           </li>
           {% endif %} {% endfor %}
@@ -32,7 +32,7 @@
           {% for ticket in tickets_working %} {% if ticket.owner == user %}
           <li>
             <a href="/ticket/{{ ticket.id }}/"
-              >{{ticket.title}} : {{ticket.status}}</a
+              >{{ticket.title}} : {{ticket.get_status_display}}</a
             >
           </li>
           {% endif %} {% endfor %}
@@ -45,7 +45,7 @@
           {% for ticket in tickets_completed %} {% if ticket.last_owner == user%}
           <li>
             <a href="/ticket/{{ ticket.id }}/"
-              >{{ticket.title}} : {{ticket.status}}</a
+              >{{ticket.title}} : {{ticket.get_status_display}}</a
             >
           </li>
           {% endif %} {% endfor %}

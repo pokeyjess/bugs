@@ -8,7 +8,7 @@
   <body>
     <div>
       <h1>{{ ticket.title }}</h1>
-      <p>Current status: {{ ticket.status }}</p>
+      <p>Current status: {{ ticket.get_status_display }}</p>
       <p>In queue since: {{ ticket.time_created }}</p>
       <p>Created by: {{ ticket.creator }}</p>
       <p>User currently assiged to ticket: {{ ticket.owner }}</p>
