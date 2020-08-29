@@ -15,11 +15,9 @@
       <p>Completed by: {{ ticket.last_owner }}</p>
       <p>Description of problem: {{ticket.description }}</p>
     </div>
+    {% if ticket.status == 'P' %}
     <button>
       <a href="edit/">Edit ticket</a>
-    </button>
-    <button>
-      <a href="assign/">Work on ticket</a>
     </button>
     <button>
         <a href="invalid/">Mark as invalid</a>
@@ -28,8 +26,23 @@
         <a href="done/">Mark as done</a>
       </button>
       <button>
+        <a href="reopen/">Send back to queue</a>
+      </button>
+      {% elif ticket.status == 'D' %}
+      <button>
         <a href="reopen/">Reopen ticket</a>
       </button>
+      {% elif ticket.status == 'N'%}
+      <button>
+        <a href="edit/">Edit ticket</a>
+      </button>
+      <button>
+        <a href="assign/">Work on ticket</a>
+      </button>
+      <button>
+        <a href="invalid/">Mark as invalid</a>
+      </button>
+      {% endif %}
 </br>
 </br>
     <button>

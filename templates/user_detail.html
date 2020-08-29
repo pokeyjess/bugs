@@ -16,7 +16,7 @@
       <div>
         <h4>Tickets created</h4>
         <ul>
-          {% for ticket in ticket_created %} {% if ticket.creator == user %}
+          {% for ticket in tickets_created %} {% if ticket.creator == user %}
           <li>
             <a href="/ticket/{{ ticket.id }}/"
               >{{ticket.title}} : {{ticket.status}}</a
@@ -29,7 +29,7 @@
       <div>
         <h4>Tickets working on</h4>
         <ul>
-          {% for ticket in ticket_working %} {% if ticket.owner == user %}
+          {% for ticket in tickets_working %} {% if ticket.owner == user %}
           <li>
             <a href="/ticket/{{ ticket.id }}/"
               >{{ticket.title}} : {{ticket.status}}</a
@@ -42,7 +42,7 @@
       <div>
         <h4>Tickets completed</h4>
         <ul>
-          {% for ticket in ticket_completed %} {% if ticket.last_owner == user%}
+          {% for ticket in tickets_completed %} {% if ticket.last_owner == user%}
           <li>
             <a href="/ticket/{{ ticket.id }}/"
               >{{ticket.title}} : {{ticket.status}}</a

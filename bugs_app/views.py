@@ -63,10 +63,10 @@ def ticket_detail_view(request, ticket_id):
 @login_required
 def user_detail_view(request, user_id):
     user = MyUser.objects.filter(id=user_id).first()
-    ticket_created = Ticket.objects.filter(creator=user)
-    ticket_working = Ticket.objects.filter(owner=user)
-    ticket_completed = Ticket.objects.filter(last_owner=user)
-    return render(request, "user_detail.html", {"user": user, "ticket_created": ticket_created, "ticket_working": ticket_working, "ticket_completed": ticket_completed})
+    tickets_created = Ticket.objects.filter(creator=user)
+    tickets_working = Ticket.objects.filter(owner=user)
+    tickets_completed = Ticket.objects.filter(last_owner=user)
+    return render(request, "user_detail.html", {"user": user, "tickets_created": tickets_created, "tickets_working": tickets_working, "tickets_completed": tickets_completed})
 
 @login_required
 def ticket_edit_view(request, id):
